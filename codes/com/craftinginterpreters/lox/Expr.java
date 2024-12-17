@@ -3,9 +3,9 @@ package com.craftinginterpreters.lox;
 import java.util.List;
 
 abstract class Expr {
-  interface Visitor<R>{
-    R visitBinary(Binary expr);
-  }
+    interface Visitpr<R>{
+      R visitBinaryExpr(Binary expr);
+    }
 
   static class Binary extends Expr {
     Binary(Expr left, Token operator, Expr right) {
@@ -14,17 +14,14 @@ abstract class Expr {
       this.right = right;
     }
 
-    final Expr left;
-    final Token operator;
-    final Expr right;
-
-  @Override
+    @Override
     <R> R accept(Visitor<R> visitor) {
       return visitor.visitBinaryExpr(this);
     }
 
     final Expr left;
-    // ...
+    final Token operator;
+    final Expr right;
   }
 
   abstract <R> R accept(Visitor<R> visitor);
