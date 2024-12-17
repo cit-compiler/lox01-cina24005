@@ -3,6 +3,10 @@ package com.craftinginterpreters.lox;
 import java.util.List;
 
 abstract class Expr {
+  interface Visitor<R>{
+    R visitBinary(Binary expr);
+  }
+
   static class Binary extends Expr {
     Binary(Expr left, Token operator, Expr right) {
       this.left = left;
@@ -13,7 +17,19 @@ abstract class Expr {
     final Expr left;
     final Token operator;
     final Expr right;
+
+  @Override
+    <R> R accept(Visitor<R> visitor) {
+      return visitor.visitBinaryExpr(this);
+    }
+
+    final Expr left;
+    // ...
   }
+
+  abstract <R> R accept(Visitor<R> visitor);
+}
+
   static class Grouping extends Expr {
     Grouping(Expr expression) {
       this.expression = expression;
