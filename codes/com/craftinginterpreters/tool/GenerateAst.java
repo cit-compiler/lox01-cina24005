@@ -44,7 +44,6 @@ public class GenerateAst {
     writer.println("  abstract <R> R accept(Visitor<R> visitor);");
 
     writer.println("}");
-    writer.close();
   }
 
   private static void defineVisitor(
